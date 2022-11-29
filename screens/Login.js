@@ -12,7 +12,7 @@ import { auth } from "../firebaseConfig.js";
 /* Importamos as funções de autentificação diretamente da lib */
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -24,7 +24,7 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, email, senha)
       .then(() => {
-        console.log("Usuário foi logado!");
+        navigation.navigate("AreaLogada");
       })
       .catch((error) => {
         console.log(error);

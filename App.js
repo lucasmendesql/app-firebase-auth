@@ -1,7 +1,6 @@
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import Inicial from "./screens/Inicial";
 import Cadastro from "./screens/Cadastro";
 import Login from "./screens/Login";

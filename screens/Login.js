@@ -10,7 +10,10 @@ import {
 /* Importamos os recursos de autentificação através das configurações firebase */
 import { auth } from "../firebaseConfig.js";
 /* Importamos as funções de autentificação diretamente da lib */
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -25,6 +28,29 @@ const Login = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, senha)
       .then(() => {
         navigation.navigate("AreaLogada");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    let mensagem;
+    switch (error.code) {
+      case "auth/user-not-found":
+        mensagem = "Usuário não encontrado!";
+        break;
+
+      case "auth/wrong-password":
+        mensagem = "Senha incorreta!";
+        break;
+      default:
+        mensagem = "Houve um erro, tente novamente mais tarde";
+        break;
+    }
+  };
+  const recuperarSenha = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        Alert.alert("Recuperar senha", "Verifique sua caixa de entrada");
       })
       .catch((error) => {
         console.log(error);
@@ -48,6 +74,12 @@ const Login = ({ navigation }) => {
         <View>
           <Pressable style={estilos.botoes} onPress={login}>
             <Text style={estilos.titulo}>Entre</Text>
+          </Pressable>
+        </View>
+
+        <View>
+          <Pressable style={estilos.botoes} onPress={recuperarSenha}>
+            <Text style={estilos.titulo}>Recuperar senha</Text>
           </Pressable>
         </View>
       </View>

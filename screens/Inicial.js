@@ -8,7 +8,7 @@ const Inicial = ({ navigation }) => {
         <Text style={estilos.subtitulo}>Autenticação com Firebase</Text>
       </View>
 
-      <View>
+      <View style={estilos.Viewbotao}>
         <Pressable
           style={estilos.botoes}
           onPress={() => navigation.navigate("Login")}
@@ -17,7 +17,7 @@ const Inicial = ({ navigation }) => {
         </Pressable>
 
         <Pressable
-          style={estilos.botoes}
+          style={estilos.botoess}
           onPress={() => navigation.navigate("Cadastro")}
         >
           <Text style={estilos.titulo}>Cadastre-se</Text>
@@ -52,14 +52,29 @@ const estilos = StyleSheet.create({
     textAlign: "center",
     color: "white",
   },
-
+  Viewbotao: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   botoes: {
     backgroundColor: "green",
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginVertical: 8,
     padding: 8,
-    width: "40%",
+    width: "47%",
+    margin: 10,
+    borderRadius: 4,
+  },
+
+  botoess: {
+    backgroundColor: "blue",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: 8,
+    padding: 8,
+    width: "47%",
+    margin: 10,
     borderRadius: 4,
   },
   titulo: {

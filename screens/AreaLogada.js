@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { auth } from "../firebaseConfig.js";
 import { signOut } from "firebase/auth";
 
@@ -16,7 +16,9 @@ const AreaLogada = ({ navigation }) => {
     <View style={estilos.container}>
       <View style={estilos.topo}>
         <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
-        <Button title="Logout" color="#D35400" onPress={Logout} />
+        <Pressable style={estilos.botoes} onPress={Logout}>
+          <Text style={estilos.titulo}>Logout</Text>
+        </Pressable>
       </View>
       <View style={estilos.geral}>
         <Text>Você está na área logada.</Text>
@@ -39,5 +41,19 @@ const estilos = StyleSheet.create({
   bemVindo: {
     fontSize: 24,
     marginVertical: 16,
+  },
+  botoes: {
+    backgroundColor: "orange",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: 8,
+    padding: 8,
+    width: "100%",
+    borderRadius: 4,
+  },
+  titulo: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 16,
   },
 });

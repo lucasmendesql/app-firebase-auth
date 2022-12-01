@@ -4,10 +4,22 @@ const Cadastro = () => {
   return (
     <View style={estilos.container}>
       <View style={estilos.formulario}>
-        <TextInput placeholder="E-mail" style={estilos.input} />
-        <TextInput placeholder="Senha" style={estilos.input} />
+        <TextInput
+          placeholder="E-mail"
+          style={estilos.input}
+          keyboardType="email-adress"
+          onChangeText={(valor) => setEmail(valor)}
+        />
+
+        <TextInput
+          placeholder="Senha"
+          style={estilos.input}
+          secureTextEntry
+          onChangeText={(valor) => setSenha(valor)}
+        />
+
         <View style={estilos.botoes}>
-          <Pressable style={estilos.botoes}>
+          <Pressable style={estilos.botoes} onPress={cadastrar}>
             <Text style={estilos.titulo}>Cadastre-se</Text>
           </Pressable>
         </View>

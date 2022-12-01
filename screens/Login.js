@@ -31,21 +31,21 @@ const Login = ({ navigation }) => {
       })
       .catch((error) => {
         console.log(error);
+        let mensagem;
+        switch (error.code) {
+          case "auth/user-not-found":
+            mensagem = "Usuário não encontrado!";
+            break;
+
+          case "auth/wrong-password":
+            mensagem = "Senha incorreta!";
+            break;
+          default:
+            mensagem = "Houve um erro, tente novamente mais tarde";
+            break;
+        }
+        Alert.alert("Ops!", mensagem);
       });
-
-    let mensagem;
-    switch (error.code) {
-      case "auth/user-not-found":
-        mensagem = "Usuário não encontrado!";
-        break;
-
-      case "auth/wrong-password":
-        mensagem = "Senha incorreta!";
-        break;
-      default:
-        mensagem = "Houve um erro, tente novamente mais tarde";
-        break;
-    }
   };
   const recuperarSenha = () => {
     sendPasswordResetEmail(auth, email)

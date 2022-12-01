@@ -71,14 +71,12 @@ const Login = ({ navigation }) => {
           secureTextEntry
           onChangeText={(valor) => setSenha(valor)}
         />
-        <View>
+        <View style={estilos.Viewbotao}>
           <Pressable style={estilos.botoes} onPress={login}>
             <Text style={estilos.titulo}>Entre</Text>
           </Pressable>
-        </View>
 
-        <View>
-          <Pressable style={estilos.botoes} onPress={recuperarSenha}>
+          <Pressable style={estilos.botoess} onPress={recuperarSenha}>
             <Text style={estilos.titulo}>Recuperar senha</Text>
           </Pressable>
         </View>
@@ -106,11 +104,29 @@ const estilos = StyleSheet.create({
     padding: 8,
     borderRadius: 4,
   },
+
+  Viewbotao: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
   botoes: {
     backgroundColor: "green",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     marginVertical: 8,
-    padding: 10,
-    width: "100%",
+    padding: 8,
+    width: "47%",
+    borderRadius: 4,
+  },
+
+  botoess: {
+    backgroundColor: "blue",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: 8,
+    padding: 8,
+    width: "47%",
     borderRadius: 4,
   },
   titulo: {

@@ -1,6 +1,27 @@
-import { StyleSheet, TextInput, View, Pressable, Text } from "react-native";
+import { useState } from "react";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Pressable,
+  Text,
+  Alert,
+} from "react-native";
+import { auth } from "../firebaseConfig.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Cadastro = () => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const cadastrar = () => {
+    if (!email || !senha) {
+      Alert.alert("Atenção", "Você deve preencher os campos e-mail e senha");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, senha);
+  };
   return (
     <View style={estilos.container}>
       <View style={estilos.formulario}>

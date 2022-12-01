@@ -6,6 +6,7 @@ import {
   Pressable,
   Text,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { auth } from "../firebaseConfig.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -13,6 +14,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const Cadastro = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+
+  const Loading = () => {
+    return (
+      <View style={estilos.viewLoading}>
+        <ActivityIndicator size="large" color="#5451a6" />
+      </View>
+    );
+  };
 
   const cadastrar = () => {
     if (!email || !senha) {

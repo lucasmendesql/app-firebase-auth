@@ -6,6 +6,7 @@ import {
   TextInput,
   Text,
   View,
+  ActivityIndicator,
 } from "react-native";
 /* Importamos os recursos de autentificação através das configurações firebase */
 import { auth } from "../firebaseConfig.js";
@@ -18,6 +19,7 @@ import {
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = () => {
     if (!email || !senha) {
@@ -25,6 +27,7 @@ const Login = ({ navigation }) => {
       return;
     }
 
+    setLoading(true);
     signInWithEmailAndPassword(auth, email, senha)
       .then(() => {
         navigation.navigate("AreaLogada");
@@ -45,6 +48,9 @@ const Login = ({ navigation }) => {
             break;
         }
         Alert.alert("Ops!", mensagem);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   const recuperarSenha = () => {
@@ -56,6 +62,7 @@ const Login = ({ navigation }) => {
         console.log(error);
       });
   };
+
   return (
     <View style={estilos.container}>
       <View style={estilos.formulario}>
@@ -71,10 +78,17 @@ const Login = ({ navigation }) => {
           secureTextEntry
           onChangeText={(valor) => setSenha(valor)}
         />
+
         <View style={estilos.Viewbotao}>
-          <Pressable style={estilos.botoes} onPress={login}>
+          <Pressable
+            style={loading ? estilos.botoesDesabilitado : estilos.botoes}
+            onPress={login}
+            disabled={loading}
+          >
             <Text style={estilos.titulo}>Entre</Text>
           </Pressable>
+
+          {loading && <ActivityIndicator size="small" color="blue" />}
 
           <Pressable style={estilos.botoess} onPress={recuperarSenha}>
             <Text style={estilos.titulo}>Recuperar senha</Text>
@@ -116,7 +130,16 @@ const estilos = StyleSheet.create({
     justifyContent: "space-evenly",
     marginVertical: 8,
     padding: 8,
-    width: "47%",
+    width: "42%",
+    borderRadius: 4,
+  },
+  botoesDesabilitado: {
+    backgroundColor: "#ccc",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: 8,
+    padding: 8,
+    width: "42%",
     borderRadius: 4,
   },
 
@@ -126,7 +149,7 @@ const estilos = StyleSheet.create({
     justifyContent: "space-evenly",
     marginVertical: 8,
     padding: 8,
-    width: "47%",
+    width: "42%",
     borderRadius: 4,
   },
   titulo: {

@@ -10,7 +10,7 @@ import {
 import { auth } from "../firebaseConfig.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const Cadastro = () => {
+const Cadastro = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -20,7 +20,44 @@ const Cadastro = () => {
       return;
     }
 
-    createUserWithEmailAndPassword(auth, email, senha);
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then(() => {
+        Alert.alert("conta criada com sucesso!", "Deseja entrar?", [
+          {
+            text: "Sim, leve-me ao seu líder",
+            onPress: () => {
+              return navigation.replace("Arealogada");
+            },
+            style: "cancel",
+          },
+
+          {
+            text: "Não, me deixe aqui mesmo",
+            onPress: () => {
+              return false;
+            },
+            style: "destructive",
+          },
+        ]);
+      })
+      .catch((error) => {
+        console.log(error);
+        let mensagem;
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            mensagem = "E-mail já cadastrado!";
+            break;
+          case "auth/weak-password":
+            mensagem = "Senha deve ter pelo menos 6 digitos";
+          case "auth/invalid-email":
+            mensagem = "Endereço de e-mail inválido!";
+            break;
+          default:
+            mensagem = "Algo deu errado... tente novamente!";
+            break;
+        }
+        Alert.alert("Atenção!", mensagem);
+      });
   };
   return (
     <View style={estilos.container}>

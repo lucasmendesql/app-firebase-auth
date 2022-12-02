@@ -14,6 +14,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const Cadastro = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const Loading = () => {
     return (
@@ -29,11 +30,12 @@ const Cadastro = ({ navigation }) => {
       return;
     }
 
+    setLoading(true);
     createUserWithEmailAndPassword(auth, email, senha)
       .then(() => {
         Alert.alert("conta criada com sucesso!", "Deseja entrar?", [
           {
-            text: "Sim, leve-me ao seu líder",
+            text: "Sim, bora lá",
             onPress: () => {
               return navigation.replace("AreaLogada");
             },
@@ -66,7 +68,8 @@ const Cadastro = ({ navigation }) => {
             break;
         }
         Alert.alert("Atenção!", mensagem);
-      });
+      })
+      .finally(() => setLoading(false));
   };
   return (
     <View style={estilos.container}>
@@ -86,10 +89,15 @@ const Cadastro = ({ navigation }) => {
         />
 
         <View style={estilos.botoes}>
-          <Pressable style={estilos.botoes} onPress={cadastrar}>
+          <Pressable
+            style={loading ? estilos.botoesDesabilitado : estilos.botoes}
+            onPress={cadastrar}
+            disabled={loading}
+          >
             <Text style={estilos.titulo}>Cadastre-se</Text>
           </Pressable>
         </View>
+        {loading && <ActivityIndicator size="small" color="red" />}
       </View>
     </View>
   );
@@ -112,6 +120,13 @@ const estilos = StyleSheet.create({
     backgroundColor: "white",
     marginVertical: 8,
     padding: 8,
+    borderRadius: 4,
+  },
+  botoesDesabilitado: {
+    backgroundColor: "#ccc",
+    marginVertical: 8,
+    padding: 2,
+    width: "100%",
     borderRadius: 4,
   },
   botoes: {

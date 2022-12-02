@@ -9,23 +9,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { auth } from "../firebaseConfig.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const Cadastro = ({ navigation }) => {
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const Loading = () => {
-    return (
-      <View style={estilos.viewLoading}>
-        <ActivityIndicator size="large" color="#5451a6" />
-      </View>
-    );
-  };
-
   const cadastrar = () => {
-    if (!email || !senha) {
+    if (!nome || !email || !senha) {
       Alert.alert("Atenção", "Você deve preencher os campos e-mail e senha");
       return;
     }
@@ -33,6 +26,10 @@ const Cadastro = ({ navigation }) => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, senha)
       .then(() => {
+        /* Ao fazer a criação do novo usuário (com email e senha), aproveitamos apara atualizar via updateProfile a propriedade do auth que permite adicionar um nome ao usuário  */
+        updateProfile(auth.currentUser, {
+          displayName: nome,
+        });
         Alert.alert("conta criada com sucesso!", "Deseja entrar?", [
           {
             text: "Sim, bora lá",
@@ -74,6 +71,12 @@ const Cadastro = ({ navigation }) => {
   return (
     <View style={estilos.container}>
       <View style={estilos.formulario}>
+        <TextInput
+          placeholder="Nome"
+          style={estilos.input}
+          onChangeText={(valor) => setNome(valor)}
+        />
+
         <TextInput
           placeholder="E-mail"
           style={estilos.input}

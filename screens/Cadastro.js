@@ -35,7 +35,7 @@ const Cadastro = ({ navigation }) => {
           {
             text: "Sim, leve-me ao seu líder",
             onPress: () => {
-              return navigation.replace("Arealogada");
+              return navigation.replace("AreaLogada");
             },
             style: "cancel",
           },

@@ -4,7 +4,7 @@ const Inicial = ({ navigation }) => {
   return (
     <View style={estilos.container}>
       <View style={estilos.introducao}>
-        <Text style={estilos.titulo}>React Native</Text>
+        <Text style={estilos.titulo}>App Auth</Text>
         <Text style={estilos.subtitulo}>Autenticação com Firebase</Text>
       </View>
 
@@ -57,7 +57,7 @@ const estilos = StyleSheet.create({
     justifyContent: "space-between",
   },
   botoes: {
-    backgroundColor: "green",
+    backgroundColor: "black",
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginVertical: 8,
@@ -68,7 +68,7 @@ const estilos = StyleSheet.create({
   },
 
   botoess: {
-    backgroundColor: "blue",
+    backgroundColor: "red",
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginVertical: 8,
